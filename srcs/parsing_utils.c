@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/08 16:37:51 by scraeyme         ###   ########.fr       */
+/*   Created: 2024/11/08 16:22:17 by scraeyme          #+#    #+#             */
+/*   Updated: 2024/11/08 16:38:33 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-# include "../libft/libft.h"
-# include "../libft/ft_printf/includes/ft_printf.h"
-# include "../libft/get_next_line/get_next_line.h"
-# include "../MLX42/include/MLX42/MLX42.h"
-# include <math.h>
-# include <fcntl.h> // open
-# include <string.h> // strerror
-# include <stdio.h> // perror
+#include "so_long.h"
 
-int		is_ber_file(char *str);
-char	**get_map(int fd);
+int	is_ber_file(char *str)
+{
+	int	i;
 
-#endif
+	i = ft_strlen(str) - 1;
+	if (i < 3)
+		return (0);
+	return (ft_strncmp(&str[i - 3], ".ber", 4) == 0);
+}

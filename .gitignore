@@ -1,0 +1,8 @@
+objs/
+so_long
+*.o
+*.a
+.vscode/
+test*
+*.ber
+test_maps/

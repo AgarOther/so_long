@@ -1,6 +1,6 @@
 # Compilation
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 
 LIBFT		= @make -C ./libft
 
@@ -11,7 +11,9 @@ MLX			= MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 NAME		= so_long
 
 # Sources & Includes
-SRCS		=	srcs/main.c
+SRCS		=	srcs/main.c \
+				srcs/parsing.c \
+				srcs/parsing_utils.c
 
 OBJ_FOLDER	= objs
 INCLUDES	= includes
