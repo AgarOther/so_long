@@ -1,32 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isfilled.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/08 22:30:52 by scraeyme         ###   ########.fr       */
+/*   Created: 2024/11/08 22:14:37 by scraeyme          #+#    #+#             */
+/*   Updated: 2024/11/08 22:59:24 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-int	main(int argc, char **argv)
+#include <stdio.h>
+static int	is_whitelist(char current, char *whitelist)
 {
-	int		fd;
-	char	**map;
+	int	i;
 
-	if (argc != 2 || !is_ber_file(argv[1]))
-		return (print_error(0));
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (print_error(1));
-	map = get_map(fd);
-	if (!map)
-		return (print_error(2));
-	close(fd);
-	ft_tabprint(map, 0);
-	ft_tabfree(map, ft_tablen((const char **)map));
+	if (!whitelist)
+		return (1);
+	i = 0;
+	while (whitelist[i])
+	{
+		if (current == whitelist[i])
+			return (1);
+		i++;
+	}
 	return (0);
+}
+
+int	ft_isfilled(char *str, int c, char *whitelist)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != c && !is_whitelist(str[i], whitelist))
+			return (0);
+		i++;
+	}
+	return (1);
 }

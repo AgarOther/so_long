@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/08 16:37:51 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/08 22:21:54 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 
 int		is_ber_file(char *str);
 char	**get_map(int fd);
+int		print_error(int code);
 
 #endif

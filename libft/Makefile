@@ -6,6 +6,7 @@ NAME = libft.a
 
 SRCS =	ft_atoi.c \
 		ft_bzero.c \
+		ft_hasdigit.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
 		ft_isascii.c \
@@ -14,6 +15,8 @@ SRCS =	ft_atoi.c \
 		ft_isprint.c \
 		ft_isspace.c \
 		ft_is_eol.c \
+		ft_isfilled.c \
+		ft_istrimmable.c \
 		ft_toupper.c \
 		ft_itoa.c \
 		ft_memchr.c \

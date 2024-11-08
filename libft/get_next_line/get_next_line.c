@@ -62,21 +62,26 @@ char	*get_next_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[1024];
+	static char	*buffer;
 	char		*line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	if (!buffer[fd])
+	if (!buffer)
 	{
-		buffer[fd] = ft_calloc(1, 1);
-		if (!buffer[fd])
+		buffer = ft_calloc(1, 1);
+		if (!buffer)
 			return (NULL);
 	}
-	buffer[fd] = get_until_newline(buffer[fd], fd);
-	if (!buffer[fd] || !buffer[fd][0])
+	buffer = get_until_newline(buffer, fd);
+	if (!buffer || !buffer[0])
 		return (NULL);
-	line = transform_buffer(buffer[fd]);
-	buffer[fd] = get_next_buffer(buffer[fd]);
+	line = transform_buffer(buffer);
+	buffer = get_next_buffer(buffer);
+	if (buffer && !buffer[0])
+	{
+		free(buffer);
+		buffer = NULL;
+	}
 	return (line);
 }
