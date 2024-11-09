@@ -6,11 +6,66 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:16:59 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/08 23:03:04 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 12:13:17 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static int	has_all_features(t_map *map)
+{
+	int 	player;
+	int		collectibles;
+	int		exit;
+	int		i;
+	char	*tmp;
+
+	player = 0;
+	collectibles = 0;
+	exit = 0;
+	while (map)
+	{
+		i = -1;
+		tmp = map->str;
+		while (tmp[++i])
+		{
+			if (tmp[i] == 'C' && !collectibles)
+				collectibles = 1;
+			else if (tmp[i] == 'E' && !exit)
+				exit = 1;
+			else if (tmp[i] == 'P' && !player)
+				player = 1;
+		}
+		map = map->next;
+	}
+	return (player + collectibles + exit == 3);
+}
+
+static int	is_map_valid(t_map *map)
+{
+	char	*tmp;
+	size_t	size;
+	int		i;
+
+	size = ft_strlen(map->str);
+	map = map->next;
+	while (map)
+	{
+		i = 0;
+		tmp = map->str;
+		while (tmp[i])
+		{
+			if (tmp[i] != '0' && tmp[i] != '1' && tmp[i] != 'C'
+				&& tmp[i] != 'E' && tmp[i] != 'P' && tmp[i] != '\n')
+				return (0);
+			i++;
+		}
+		if (ft_strlen(tmp) != size)
+			return (0);
+		map = map->next;
+	}
+	return (1);
+}
 
 static t_map	*get_map_as_list(int fd)
 {
@@ -26,22 +81,19 @@ static t_map	*get_map_as_list(int fd)
 		if (!map)
 			map = ft_lstnew(tmp);
 		else
-		{
-			// Need to check once GNL is done, or leaks will happen.
-			if (ft_strlen(tmp) != ft_strlen(map->str) || !ft_hasdigit(tmp))
-			{
-				free(tmp);
-				ft_lstclear(&map);
-				return (NULL);
-			}
 			ft_lstadd_back(&map, ft_lstnew(tmp));
-		}
 	}
 	free(tmp);
+	if (!map || !is_map_valid(map) || !has_all_features(map))
+	{
+		free(tmp);
+		ft_lstclear(&map);
+		return (NULL);
+	}
 	return (map);
 }
 
-static int	is_valid(t_map *head, char **tab, char *map, int i)
+static int	has_walls(t_map *head, char **tab, char *map, int i)
 {
 	int	size;
 
@@ -75,7 +127,7 @@ char	**get_map(int fd)
 	while (lst_map)
 	{
 		map[i] = ft_strdup(lst_map->str);
-		if (!is_valid(head, map, map[i], i))
+		if (!has_walls(head, map, map[i], i))
 			return (NULL);
 		lst_map = lst_map->next;
 		i++;
