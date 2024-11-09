@@ -38,6 +38,7 @@ SRCS =	ft_atoi.c \
 		ft_strrchr.c \
 		ft_strlcpy.c \
 		ft_strncmp.c \
+		ft_stroccur.c \
 		ft_memcmp.c \
 		ft_calloc.c \
 		ft_substr.c \
@@ -47,6 +48,7 @@ SRCS =	ft_atoi.c \
 		ft_tablen.c \
 		ft_tabfree.c \
 		ft_tabprint.c \
+		ft_tabdup.c \
 		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstsize.c \

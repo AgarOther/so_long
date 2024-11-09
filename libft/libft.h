@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 20:21:22 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/08 22:44:34 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:44:42 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+int		ft_stroccur(char *str, int c);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_tabfree(char **tab, int size);
 void	ft_tabprint(char **tab, int endl);
+char	**ft_tabdup(char **tab, int size);
 void	ft_lstprint(t_map *map, int endl);
 t_map	*ft_lstnew(char *new );
 void	ft_lstadd_front(t_map **lst, t_map *new);

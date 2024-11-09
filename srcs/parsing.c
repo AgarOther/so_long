@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:16:59 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 12:13:17 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:25:42 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	has_all_features(t_map *map)
 {
-	int 	player;
+	int		player;
 	int		collectibles;
 	int		exit;
 	int		i;
@@ -43,27 +43,30 @@ static int	has_all_features(t_map *map)
 
 static int	is_map_valid(t_map *map)
 {
+	t_map	*head;
 	char	*tmp;
 	size_t	size;
 	int		i;
 
+	head = map;
 	size = ft_strlen(map->str);
 	map = map->next;
 	while (map)
 	{
-		i = 0;
+		i = -1;
 		tmp = map->str;
-		while (tmp[i])
+		while (tmp[++i])
 		{
 			if (tmp[i] != '0' && tmp[i] != '1' && tmp[i] != 'C'
 				&& tmp[i] != 'E' && tmp[i] != 'P' && tmp[i] != '\n')
 				return (0);
-			i++;
 		}
 		if (ft_strlen(tmp) != size)
 			return (0);
 		map = map->next;
 	}
+	if (!has_correct_features(head))
+		return (0);
 	return (1);
 }
 

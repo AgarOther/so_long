@@ -13,7 +13,8 @@ NAME		= so_long
 # Sources & Includes
 SRCS		=	srcs/main.c \
 				srcs/parsing.c \
-				srcs/parsing_utils.c
+				srcs/parsing_utils.c \
+				srcs/parsing_map.c
 
 OBJ_FOLDER	= objs
 INCLUDES	= includes

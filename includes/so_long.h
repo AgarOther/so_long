@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/08 22:21:54 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:37:17 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,17 @@
 # include <string.h> // strerror
 # include <stdio.h> // perror
 
+typedef struct s_parse
+{
+	int	collectibles;
+	int	exit;
+}			t_parse;
+
+//Parsing
 int		is_ber_file(char *str);
 char	**get_map(int fd);
 int		print_error(int code);
+int		has_path(char **map);
+int		has_correct_features(t_map *map);
 
 #endif
