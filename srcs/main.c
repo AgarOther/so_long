@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 21:54:04 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 23:01:20 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static char	**print_error(int code)
 {
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("Error", 1);
 	if (code == 0)
-		ft_putendl_fd("Please specify a .ber file.", 2);
+		ft_putendl_fd("Please specify a .ber file.", 1);
 	else if (code == 1)
-		ft_putendl_fd("File doesn't exist.", 2);
+		ft_putendl_fd("File doesn't exist.", 1);
 	else if (code == 2)
-		ft_putendl_fd("Map is invalid.", 2);
+		ft_putendl_fd("Map is invalid.", 1);
 	else if (code == 3)
-		ft_putendl_fd("Path is invalid.", 2);
+		ft_putendl_fd("Path is invalid.", 1);
 	return (NULL);
 }
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	map = parse_map(argc, argv);
 	if (!map)
 		return (0);
-	ft_tabprint(map, 0);
+	//ft_tabprint(map, 0);
 	ft_tabfree(map, ft_tablen((const char **)map));
 	return (0);
 }
