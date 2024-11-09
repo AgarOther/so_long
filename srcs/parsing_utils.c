@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:22:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 18:17:01 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:28:00 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,12 @@ static void	flood_fill(char **map, int x, int y, t_parse *items)
 	flood_fill(map, x - 1, y, items);
 }
 
-static int	has_path_execute(char **map)
+static int	has_path_execute(char **map, t_parse *items)
 {
-	t_parse	*items;
 	int		x;
 	int		y;
 	int		path;
 
-	items = malloc(sizeof(t_parse));
-	if (!items)
-		return (0);
 	x = -1;
 	while (map[++x])
 	{
@@ -81,8 +77,6 @@ static int	has_path_execute(char **map)
 		if (map[x][y] == 'P')
 			break ;
 	}
-	items->collectibles = get_collectibles(map);
-	items->exit = 1;
 	flood_fill(map, x, y, items);
 	path = (items->collectibles == 0 && items->exit == 0);
 	free(items);
@@ -92,9 +86,13 @@ static int	has_path_execute(char **map)
 
 int	has_path(char **map)
 {
+	t_parse	*items;
 	char	**map_cpy;
 	int		size;
 
+	items = malloc(sizeof(t_parse));
+	if (!items)
+		return (0);
 	size = ft_tablen((const char **)map);
 	map_cpy = ft_tabdup(map, size);
 	if (!map_cpy)
@@ -102,5 +100,7 @@ int	has_path(char **map)
 		ft_tabfree(map, size);
 		return (0);
 	}
-	return (has_path_execute(map_cpy));
+	items->collectibles = get_collectibles(map);
+	items->exit = 1;
+	return (has_path_execute(map_cpy, items));
 }

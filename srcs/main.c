@@ -6,26 +6,26 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 18:21:04 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:54:04 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	print_error(int code)
+static char	**print_error(int code)
 {
 	if (code == 0)
-		ft_printf("Error! Please specify a .ber file.\n");
+		ft_putendl_fd("Error! Please specify a .ber file.", 2);
 	else if (code == 1)
-		ft_printf("Error! File doesn't exist.\n");
+		ft_putendl_fd("Error! File doesn't exist.", 2);
 	else if (code == 2)
-		ft_printf("Error! Map is invalid.\n");
+		ft_putendl_fd("Error! Map is invalid.", 2);
 	else if (code == 3)
-		ft_printf("Error! Path is invalid.\n");
-	return (1);
+		ft_putendl_fd("Error! Path is invalid.", 2);
+	return (NULL);
 }
 
-int	main(int argc, char **argv)
+static char	**parse_map(int argc, char **argv)
 {
 	int		fd;
 	char	**map;
@@ -44,6 +44,16 @@ int	main(int argc, char **argv)
 		ft_tabfree(map, ft_tablen((const char **)map));
 		return (print_error(3));
 	}
+	return (map);
+}
+
+int	main(int argc, char **argv)
+{
+	char	**map;
+
+	map = parse_map(argc, argv);
+	if (!map)
+		return (1);
 	ft_tabprint(map, 0);
 	ft_tabfree(map, ft_tablen((const char **)map));
 	return (0);

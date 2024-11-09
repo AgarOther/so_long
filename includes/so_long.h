@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 16:37:17 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:53:36 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_parse
 //Parsing
 int		is_ber_file(char *str);
 char	**get_map(int fd);
-int		print_error(int code);
 int		has_path(char **map);
 int		has_correct_features(t_map *map);
 

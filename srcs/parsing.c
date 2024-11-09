@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:16:59 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 18:25:42 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:23:36 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	is_map_valid(t_map *map)
 				&& tmp[i] != 'E' && tmp[i] != 'P' && tmp[i] != '\n')
 				return (0);
 		}
-		if (ft_strlen(tmp) != size)
+		if (ft_strlen(tmp) + (tmp[i - 1] != '\n') != size)
 			return (0);
 		map = map->next;
 	}
@@ -89,7 +89,6 @@ static t_map	*get_map_as_list(int fd)
 	free(tmp);
 	if (!map || !is_map_valid(map) || !has_all_features(map))
 	{
-		free(tmp);
 		ft_lstclear(&map);
 		return (NULL);
 	}
