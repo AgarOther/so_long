@@ -14,14 +14,15 @@
 
 static char	**print_error(int code)
 {
+	ft_putendl_fd("Error", 2);
 	if (code == 0)
-		ft_putendl_fd("Error! Please specify a .ber file.", 2);
+		ft_putendl_fd("Please specify a .ber file.", 2);
 	else if (code == 1)
-		ft_putendl_fd("Error! File doesn't exist.", 2);
+		ft_putendl_fd("File doesn't exist.", 2);
 	else if (code == 2)
-		ft_putendl_fd("Error! Map is invalid.", 2);
+		ft_putendl_fd("Map is invalid.", 2);
 	else if (code == 3)
-		ft_putendl_fd("Error! Path is invalid.", 2);
+		ft_putendl_fd("Path is invalid.", 2);
 	return (NULL);
 }
 
@@ -53,7 +54,7 @@ int	main(int argc, char **argv)
 
 	map = parse_map(argc, argv);
 	if (!map)
-		return (1);
+		return (0);
 	ft_tabprint(map, 0);
 	ft_tabfree(map, ft_tablen((const char **)map));
 	return (0);
