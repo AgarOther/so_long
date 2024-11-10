@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 23:01:20 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:26:26 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,50 @@ static char	**parse_map(int argc, char **argv)
 	return (map);
 }
 
+static int	return_free(char **map)
+{
+	ft_tabfree(map, ft_tablen((const char **)map));
+	ft_putendl_fd("Error\nCouldn't initialize MLX.", 1);
+	return (1);
+}
+
+static int	set_data(t_data **data, char **map)
+{
+	(*data)->map = map;
+	(*data)->w_width = ft_strlen((const char *)*map) * WIDTH;
+	(*data)->w_height = ft_tablen((const char **)map) * HEIGHT;
+	(*data)->mlx = mlx_init((*data)->w_width,
+			(*data)->w_height, "so_long", true);
+	if (!(*data)->mlx)
+		return (0);
+	if (!(*data)->w_width || !(*data)->w_height)
+		return (0);
+	(*data)->img = mlx_new_image((*data)->mlx, (*data)->w_width,
+			(*data)->w_height);
+	if (!(*data)->img)
+		return (0);
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
-	char	**map;
+	char		**map;
+	t_data		*data;
 
 	map = parse_map(argc, argv);
 	if (!map)
-		return (0);
-	//ft_tabprint(map, 0);
+		return (1);
+	data = malloc(sizeof(t_data));
+	if (!data || !set_data(&data, map))
+		return (return_free(map));
+	if (mlx_image_to_window(data->mlx, data->img,
+			data->w_width / 2, data->w_height / 2) < 0)
+		return (return_free(map));
+	mlx_loop(data->mlx);
+	mlx_delete_image(data->mlx, data->img);
+	mlx_close_window(data->mlx);
 	ft_tabfree(map, ft_tablen((const char **)map));
+	free(data);
+	mlx_terminate(data->mlx);
 	return (0);
 }
