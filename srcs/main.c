@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/10 16:26:26 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/10 22:28:59 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,30 @@ static int	set_data(t_data **data, char **map)
 	return (1);
 }
 
+void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(data->mlx);
+	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
+		data->player->instances->x += 32;
+	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
+		data->player->instances->x -= 32;
+	else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
+		data->player->instances->y -= 32;
+	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
+		data->player->instances->y += 32;
+}
+
 int	main(int argc, char **argv)
 {
-	char		**map;
-	t_data		*data;
+	char			**map;
+	int32_t			wtf;
+	t_data			*data;
+	mlx_texture_t	*texture;
+	mlx_image_t		*displayable_image;
 
 	map = parse_map(argc, argv);
 	if (!map)
@@ -87,11 +107,20 @@ int	main(int argc, char **argv)
 	if (mlx_image_to_window(data->mlx, data->img,
 			data->w_width / 2, data->w_height / 2) < 0)
 		return (return_free(map));
+	texture = mlx_load_png("meow.png");
+	if (!texture)
+	{
+		ft_printf("nope\n");
+		return (0);
+	}
+	displayable_image = mlx_texture_to_image(data->mlx, texture);
+	mlx_to(data->mlx, displayable_image, 0, 0);
+	data->player = displayable_image;
+	mlx_key_hook(data->mlx, &key_hook, data);
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
-	mlx_close_window(data->mlx);
 	ft_tabfree(map, ft_tablen((const char **)map));
-	free(data);
 	mlx_terminate(data->mlx);
+	free(data);
 	return (0);
 }

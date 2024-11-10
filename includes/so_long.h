@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/10 16:16:30 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/10 22:42:16 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <string.h> // strerror
 # include <stdio.h> // perror
 
+// Add a t_textures and a t_images to store my textures as png files.
+// Delete t_textures when t_images are done.
+
 typedef struct s_parse
 {
 	int	collectibles;
@@ -33,6 +36,7 @@ typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	mlx_image_t	*player;
 	char		**map;
 	int			w_width;
 	int			w_height;
