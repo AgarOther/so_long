@@ -93,7 +93,6 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 int	main(int argc, char **argv)
 {
 	char			**map;
-	int32_t			wtf;
 	t_data			*data;
 	mlx_texture_t	*texture;
 	mlx_image_t		*displayable_image;
@@ -107,14 +106,14 @@ int	main(int argc, char **argv)
 	if (mlx_image_to_window(data->mlx, data->img,
 			data->w_width / 2, data->w_height / 2) < 0)
 		return (return_free(map));
-	texture = mlx_load_png("meow.png");
+	texture = mlx_load_png("owo.png");
 	if (!texture)
 	{
 		ft_printf("nope\n");
 		return (0);
 	}
 	displayable_image = mlx_texture_to_image(data->mlx, texture);
-	mlx_to(data->mlx, displayable_image, 0, 0);
+	mlx_image_to_window(data->mlx, displayable_image, 0, 0);
 	data->player = displayable_image;
 	mlx_key_hook(data->mlx, &key_hook, data);
 	mlx_loop(data->mlx);
