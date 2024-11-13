@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/10 22:42:16 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:39:44 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,50 @@ typedef struct s_parse
 	int	exit;
 }			t_parse;
 
+typedef struct s_textures
+{
+	mlx_texture_t	*player;
+	mlx_texture_t	*wall;
+	mlx_texture_t	*collectible;
+	mlx_texture_t	*exit;
+	mlx_texture_t	*empty;
+}			t_textures;
+
+typedef struct s_sprites
+{
+	mlx_image_t	*player;
+	mlx_image_t	*wall;
+	mlx_image_t	*collectible;
+	mlx_image_t	*exit;
+	mlx_image_t	*empty;
+}			t_sprites;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
-	mlx_image_t	*img;
-	mlx_image_t	*player;
+	t_textures	*textures;
+	t_sprites	*sprites;
 	char		**map;
 	int			w_width;
 	int			w_height;
+	int			player_x;
+	int			player_y;
 }			t_data;
 
-//Parsing
+// Textures
+int		load_textures(t_data *data);
+
+// Parsing
 int		is_ber_file(char *str);
 char	**get_map(int fd);
-int		has_path(char **map);
+int		has_path(char **map, t_data *data);
 int		has_correct_features(t_map *map);
+
+// Player Movement
+void	key_hook(mlx_key_data_t keydata, void *param);
+void	move_right(t_data *data);
+void	move_left(t_data *data);
+void	move_down(t_data *data);
+void	move_up(t_data *data);
 
 #endif

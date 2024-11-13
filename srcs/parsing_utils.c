@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:22:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 21:28:00 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:49:48 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,34 @@ static void	flood_fill(char **map, int x, int y, t_parse *items)
 	flood_fill(map, x - 1, y, items);
 }
 
-static int	has_path_execute(char **map, t_parse *items)
+static int	has_path_execute(char **map, t_parse *items, t_data *data)
 {
 	int		x;
 	int		y;
 	int		path;
 
-	x = -1;
-	while (map[++x])
+	y = -1;
+	while (map[++y])
 	{
-		y = -1;
-		while (map[x][++y])
+		x = -1;
+		while (map[y][++x])
 		{
-			if (map[x][y] == 'P')
+			if (map[y][x] == 'P')
 				break ;
 		}
-		if (map[x][y] == 'P')
+		if (map[y][x] == 'P')
 			break ;
 	}
-	flood_fill(map, x, y, items);
+	flood_fill(map, y, x, items);
 	path = (items->collectibles == 0 && items->exit == 0);
 	free(items);
 	ft_tabfree(map, ft_tablen((const char **)map));
+	data->player_x = x;
+	data->player_y = y;
 	return (path);
 }
 
-int	has_path(char **map)
+int	has_path(char **map, t_data *data)
 {
 	t_parse	*items;
 	char	**map_cpy;
@@ -102,5 +104,5 @@ int	has_path(char **map)
 	}
 	items->collectibles = get_collectibles(map);
 	items->exit = 1;
-	return (has_path_execute(map_cpy, items));
+	return (has_path_execute(map_cpy, items, data));
 }
