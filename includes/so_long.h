@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/13 00:39:44 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:10:57 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ typedef struct s_data
 	int			player_x;
 	int			player_y;
 }			t_data;
+
+// Memory
+int	free_data(t_data *data);
 
 // Textures
 int		load_textures(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/13 00:54:52 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:11:08 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static char	**print_error(int code, t_data *data)
 		ft_putendl_fd("Map is invalid.", 1);
 	else if (code == 3)
 		ft_putendl_fd("Path is invalid.", 1);
+	else if (code == 4)
+		ft_putendl_fd("Error\nCouldn't initialize MLX.", 1);
 	free(data);
 	return (NULL);
 }
@@ -47,14 +49,6 @@ static char	**parse_map(int argc, char **argv, t_data *data)
 		return (print_error(3, data));
 	}
 	return (map);
-}
-
-// Redo free to fully clear the map
-static int	return_free(char **map)
-{
-	ft_tabfree(map, ft_tablen((const char **)map));
-	ft_putendl_fd("Error\nCouldn't initialize MLX.", 1);
-	return (1);
 }
 
 static int	set_data(t_data **data, char **map)
@@ -82,22 +76,14 @@ int	main(int argc, char **argv)
 	map = parse_map(argc, argv, data);
 	if (!map)
 		return (1);
-	if (!set_data(&data, map))
-		return (return_free(map));
-	if (!load_textures(data))
-		return (return_free(map));
-	// texture = mlx_load_png("meow.png");
-	// if (!texture)
-	// {
-	// 	ft_printf("nope\n");
-	// 	return (0);
-	// }
-	// player = mlx_texture_to_image(data->mlx, texture);
-	// mlx_image_to_window(data->mlx, player, data->player_x * 32, data->player_y * 32);
-	// data->player = player;
+	if (!set_data(&data, map) || !load_textures(data))
+	{
+		ft_putendl_fd("Error\nCouldn't initialize MLX. "
+			"Check if your textures are correct.", 1);
+		return (free_data(data));
+	}
 	mlx_key_hook(data->mlx, &key_hook, data);
 	mlx_loop(data->mlx);
-	ft_tabfree(map, ft_tablen((const char **)map));
-	mlx_terminate(data->mlx);
+	free_data(data);
 	return (0);
 }

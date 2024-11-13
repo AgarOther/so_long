@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:50:24 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/13 00:53:52 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:00:49 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static t_textures	*get_textures(void)
 	textures = malloc(sizeof(t_textures));
 	if (!textures)
 		return (NULL);
-	textures->player = mlx_load_png("./assets/player.png");
-	textures->wall = mlx_load_png("./assets/wall.png");
-	textures->collectible = mlx_load_png("./assets/collectible.png");
-	textures->exit = mlx_load_png("./assets/exit.png");
-	textures->empty = mlx_load_png("./assets/empty.png");
+	textures->player = mlx_load_png("./textures/player.png");
+	textures->wall = mlx_load_png("./textures/wall.png");
+	textures->collectible = mlx_load_png("./textures/collectible.png");
+	textures->exit = mlx_load_png("./textures/exit.png");
+	textures->empty = mlx_load_png("./textures/empty.png");
 	if (!textures->player || !textures->wall || !textures->collectible
 		|| !textures->exit || !textures->empty)
 		return (NULL);
@@ -91,7 +91,7 @@ int	load_textures(t_data *data)
 		y++;
 	}
 	if (mlx_image_to_window(data->mlx, data->sprites->player,
-		data->player_x * 32, data->player_y * 32) == -1)
+			data->player_x * 32, data->player_y * 32) == -1)
 		return (0);
 	return (1);
 }

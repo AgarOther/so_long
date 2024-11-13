@@ -15,8 +15,9 @@ SRCS		=	srcs/main.c \
 				srcs/parsing.c \
 				srcs/parsing_utils.c \
 				srcs/parsing_map.c \
-				srcs/player_moves.c \
-				srcs/textures.c
+				srcs/player_actions.c \
+				srcs/textures.c \
+				srcs/free.c
 
 OBJ_FOLDER	= objs
 INCLUDES	= includes
