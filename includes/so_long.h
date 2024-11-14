@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/13 12:10:57 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:41:11 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,7 @@
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include "../libft/get_next_line/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-# include <math.h>
-# include <fcntl.h> // open
-# include <string.h> // strerror
-# include <stdio.h> // perror
-
-// Add a t_textures and a t_images to store my textures as png files.
-// Delete t_textures when t_images are done.
+# include <fcntl.h>
 
 typedef struct s_parse
 {
@@ -60,22 +54,27 @@ typedef struct s_data
 	int			w_height;
 	int			player_x;
 	int			player_y;
+	int			exit_x;
+	int			exit_y;
+	int			steps;
+	int			collectibles_left;
 }			t_data;
 
 // Memory
-int	free_data(t_data *data);
+int		free_data(t_data *data, int textures);
 
 // Textures
 int		load_textures(t_data *data);
+int		draw_texture(t_data	*data, char type, int x, int y);
 
 // Parsing
 int		is_ber_file(char *str);
-char	**get_map(int fd);
-int		has_path(char **map, t_data *data);
+char	**get_map(int fd, int i);
+int		has_path(char **map, t_data **data);
 int		has_correct_features(t_map *map);
+void	set_exit(t_data **data);
 
 // Player Movement
-void	key_hook(mlx_key_data_t keydata, void *param);
 void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	move_down(t_data *data);

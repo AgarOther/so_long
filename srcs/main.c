@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/13 12:11:08 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:41:20 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static char	**parse_map(int argc, char **argv, t_data *data)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (print_error(1, data));
-	map = get_map(fd);
+	map = get_map(fd, 0);
 	if (!map)
 		return (print_error(2, data));
 	close(fd);
-	if (!has_path(map, data))
+	if (!has_path(map, &data))
 	{
 		ft_tabfree(map, ft_tablen((const char **)map));
 		return (print_error(3, data));
@@ -53,6 +53,9 @@ static char	**parse_map(int argc, char **argv, t_data *data)
 
 static int	set_data(t_data **data, char **map)
 {
+	(*data)->steps = 0;
+	(*data)->sprites = NULL;
+	(*data)->textures = NULL;
 	(*data)->map = map;
 	(*data)->w_width = (ft_strlen((const char *)*map) - 1) * WIDTH;
 	(*data)->w_height = ft_tablen((const char **)map) * HEIGHT;
@@ -62,7 +65,28 @@ static int	set_data(t_data **data, char **map)
 		return (0);
 	if (!(*data)->w_width || !(*data)->w_height)
 		return (0);
+	set_exit(data);
 	return (1);
+}
+
+static void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+	{
+		if (keydata.key == MLX_KEY_ESCAPE)
+			mlx_close_window(data->mlx);
+		else if (keydata.key == MLX_KEY_RIGHT)
+			move_right(data);
+		else if (keydata.key == MLX_KEY_LEFT)
+			move_left(data);
+		else if (keydata.key == MLX_KEY_DOWN)
+			move_down(data);
+		else if (keydata.key == MLX_KEY_UP)
+			move_up(data);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -80,10 +104,10 @@ int	main(int argc, char **argv)
 	{
 		ft_putendl_fd("Error\nCouldn't initialize MLX. "
 			"Check if your textures are correct.", 1);
-		return (free_data(data));
+		return (free_data(data, 0));
 	}
 	mlx_key_hook(data->mlx, &key_hook, data);
 	mlx_loop(data->mlx);
-	free_data(data);
+	free_data(data, 1);
 	return (0);
 }

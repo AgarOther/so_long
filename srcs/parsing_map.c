@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:36:20 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 16:41:25 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:52:42 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,27 @@ int	has_correct_features(t_map *map)
 		map = map->next;
 	}
 	return (exit == 1 && player == 1);
+}
+
+void	set_exit(t_data **data)
+{
+	int		x;
+	int		y;
+	char	**map;
+
+	y = -1;
+	map = (*data)->map;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (map[y][x] == 'E')
+				break ;
+		}
+		if (map[y][x] == 'E')
+			break ;
+	}
+	(*data)->exit_x = x;
+	(*data)->exit_y = y;
 }

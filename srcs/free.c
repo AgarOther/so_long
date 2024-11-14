@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:28:02 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/13 12:11:15 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:42:05 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ static void	free_texture(mlx_texture_t *texture)
 		mlx_delete_texture(texture);
 }
 
-int	free_data(t_data *data)
+void	free_textures(t_data *data)
 {
-	mlx_close_window(data->mlx);
-	if (data->map)
-		ft_tabfree(data->map, ft_tablen((const char **)data->map));
 	free_texture(data->textures->player);
 	free_texture(data->textures->wall);
 	free_texture(data->textures->collectible);
@@ -41,8 +38,14 @@ int	free_data(t_data *data)
 	free_image(data->mlx, data->sprites->exit);
 	free_image(data->mlx, data->sprites->empty);
 	free(data->sprites);
-	if (data->mlx)
-		mlx_terminate(data->mlx);
+}
+
+int	free_data(t_data *data, int textures)
+{
+	if (textures)
+		free_textures(data);
+	mlx_terminate(data->mlx);
+	ft_tabfree(data->map, ft_tablen((const char **)data->map));
 	free(data);
 	return (0);
 }

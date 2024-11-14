@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:22:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/12 23:49:48 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:37:17 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static int	get_collectibles(char **map)
 
 static void	flood_fill(char **map, int x, int y, t_parse *items)
 {
-	if (!map || x < 0 || y < 0 || map[x][y] == '1' || map[x][y] == 'F')
+	if (!map || x < 0 || y < 0 || map[x][y] == '1' || map[x][y] == 'F'
+		|| x > 100 || y > 100)
 		return ;
 	if (map[x][y] == 'C')
 		items->collectibles--;
@@ -86,7 +87,7 @@ static int	has_path_execute(char **map, t_parse *items, t_data *data)
 	return (path);
 }
 
-int	has_path(char **map, t_data *data)
+int	has_path(char **map, t_data **data)
 {
 	t_parse	*items;
 	char	**map_cpy;
@@ -99,10 +100,11 @@ int	has_path(char **map, t_data *data)
 	map_cpy = ft_tabdup(map, size);
 	if (!map_cpy)
 	{
-		ft_tabfree(map, size);
+		free(items);
 		return (0);
 	}
 	items->collectibles = get_collectibles(map);
+	(*data)->collectibles_left = items->collectibles;
 	items->exit = 1;
-	return (has_path_execute(map_cpy, items, data));
+	return (has_path_execute(map_cpy, items, *data));
 }

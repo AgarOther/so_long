@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:16:59 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 21:23:36 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:46:15 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,11 @@ static int	has_walls(t_map *head, char **tab, char *map, int i)
 	return (1);
 }
 
-char	**get_map(int fd)
+char	**get_map(int fd, int i)
 {
 	t_map	*head;
 	t_map	*lst_map;
 	char	**map;
-	int		i;
 
 	lst_map = get_map_as_list(fd);
 	head = lst_map;
@@ -124,8 +123,10 @@ char	**get_map(int fd)
 		return (NULL);
 	map = malloc((ft_lstsize(lst_map) + 1) * sizeof(char *));
 	if (!map)
+	{
+		ft_lstclear(&head);
 		return (NULL);
-	i = 0;
+	}
 	while (lst_map)
 	{
 		map[i] = ft_strdup(lst_map->str);
