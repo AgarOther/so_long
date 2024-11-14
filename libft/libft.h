@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 20:21:22 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/09 16:44:42 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:05:03 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_isprint(int c);
 int		ft_isspace(int c);
 int		ft_is_eol(char *str);
 int		ft_isfilled(char *str, int c, char *whitelist);
-int 	ft_istrimmable(char *str, int c);
+int		ft_istrimmable(char *str, int c);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);

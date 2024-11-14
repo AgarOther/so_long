@@ -6,11 +6,10 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 22:14:37 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/08 22:59:24 by scraeyme         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:05:31 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 static int	is_whitelist(char current, char *whitelist)
 {
 	int	i;

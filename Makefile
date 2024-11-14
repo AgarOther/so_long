@@ -20,6 +20,7 @@ SRCS		=	srcs/main.c \
 				srcs/free.c
 
 OBJ_FOLDER	= objs
+MLX_FOLDER	= MLX42
 INCLUDES	= includes
 
 # Objects
@@ -40,11 +41,23 @@ ALL_FCLEAN	= @echo "🧹$(LIGHT_GREEN) Project's objects & Executables cleaned! 
 
 # Rules
 
-all :
+all : mlx
 	@if [ -f $(NAME) ]; then \
 		echo '✅$(LIGHT_GREEN) Nothing to be done for "all"! ✅$(RESET)\n'; \
 	else \
 		$(MAKE) $(NAME); \
+	fi
+
+mlx :
+	@if [ -d $(MLX_FOLDER) ]; then \
+		echo "✅$(LIGHT_GREEN) MLX found! ✅$(RESET)\n"; \
+	else \
+		echo "🎉$(PURPLE) Compiling MLX... 🎉$(RESET)\n"; \
+		git clone https://github.com/codam-coding-college/MLX42.git; \
+		cmake ./MLX42 -B ./MLX42/build; \
+		make -C ./MLX42/build --no-print-directory -j4; \
+		make --directory ./MLX42/build; \
+		echo "🎉$(PURPLE) MLX compiled! 🎉$(RESET)\n"; \
 	fi
 
 $(NAME): libft $(OBJS)
