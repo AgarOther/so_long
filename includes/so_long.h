@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/14 13:41:11 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:12:07 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_textures
 	mlx_texture_t	*collectible;
 	mlx_texture_t	*exit;
 	mlx_texture_t	*empty;
+	mlx_texture_t	*goomb;
 }			t_textures;
 
 typedef struct s_sprites
@@ -42,6 +43,7 @@ typedef struct s_sprites
 	mlx_image_t	*collectible;
 	mlx_image_t	*exit;
 	mlx_image_t	*empty;
+	mlx_image_t	*goomb;
 }			t_sprites;
 
 typedef struct s_data
@@ -66,6 +68,9 @@ int		free_data(t_data *data, int textures);
 // Textures
 int		load_textures(t_data *data);
 int		draw_texture(t_data	*data, char type, int x, int y);
+void	print_steps(t_data *data);
+void	animate(void *param);
+void	add_step(t_data *data, size_t i);
 
 // Parsing
 int		is_ber_file(char *str);

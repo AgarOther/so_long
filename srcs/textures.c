@@ -6,11 +6,23 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:50:24 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/14 12:45:02 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:12:26 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	print_steps(t_data *data)
+{
+	char				*steps;
+	static mlx_image_t	*steps_str = NULL;
+
+	steps = ft_itoa(data->steps);
+	if (steps_str)
+		mlx_delete_image(data->mlx, steps_str);
+	steps_str = mlx_put_string(data->mlx, steps, 5, 5);
+	free(steps);
+}
 
 static t_textures	*get_textures(void)
 {
@@ -24,8 +36,9 @@ static t_textures	*get_textures(void)
 	textures->collectible = mlx_load_png("./textures/collectible.png");
 	textures->exit = mlx_load_png("./textures/exit.png");
 	textures->empty = mlx_load_png("./textures/empty.png");
+	textures->goomb = mlx_load_png("./textures/goomb.png");
 	if (!textures->player || !textures->wall || !textures->collectible
-		|| !textures->exit || !textures->empty)
+		|| !textures->exit || !textures->empty || !textures->goomb)
 		return (NULL);
 	return (textures);
 }
@@ -47,6 +60,7 @@ static int	set_textures(t_data **data)
 			textures->collectible);
 	sprites->exit = mlx_texture_to_image((*data)->mlx, textures->exit);
 	sprites->empty = mlx_texture_to_image((*data)->mlx, textures->empty);
+	sprites->goomb = mlx_texture_to_image((*data)->mlx, textures->goomb);
 	(*data)->sprites = sprites;
 	(*data)->textures = textures;
 	return (1);

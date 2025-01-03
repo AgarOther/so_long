@@ -1,6 +1,6 @@
 # Compilation
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror
 
 LIBFT		= @make -C ./libft
 
@@ -17,7 +17,8 @@ SRCS		=	srcs/main.c \
 				srcs/parsing_map.c \
 				srcs/player_actions.c \
 				srcs/textures.c \
-				srcs/free.c
+				srcs/free.c \
+				srcs/animations.c
 
 OBJ_FOLDER	= objs
 MLX_FOLDER	= MLX42
@@ -60,6 +61,8 @@ mlx :
 		echo "🎉$(PURPLE) MLX compiled! 🎉$(RESET)\n"; \
 	fi
 
+bonus : all
+
 $(NAME): libft $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB) $(MLX) -o $(NAME)
 	$(EXE_DONE)
@@ -91,4 +94,4 @@ f : $(NAME)
 
 re : fclean all
 
-.PHONY: all clean fclean re libft so_long f
+.PHONY: all clean fclean re libft so_long f bonus

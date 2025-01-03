@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/14 13:41:20 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:15:06 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ static void	key_hook(mlx_key_data_t keydata, void *param)
 	{
 		if (keydata.key == MLX_KEY_ESCAPE)
 			mlx_close_window(data->mlx);
-		else if (keydata.key == MLX_KEY_RIGHT)
+		else if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_D)
 			move_right(data);
-		else if (keydata.key == MLX_KEY_LEFT)
+		else if (keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_A)
 			move_left(data);
-		else if (keydata.key == MLX_KEY_DOWN)
+		else if (keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
 			move_down(data);
-		else if (keydata.key == MLX_KEY_UP)
+		else if (keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
 			move_up(data);
 	}
 }
@@ -107,6 +107,8 @@ int	main(int argc, char **argv)
 		return (free_data(data, 0));
 	}
 	mlx_key_hook(data->mlx, &key_hook, data);
+	mlx_loop_hook(data->mlx, animate, data);
+	print_steps(data);
 	mlx_loop(data->mlx);
 	free_data(data, 1);
 	return (0);

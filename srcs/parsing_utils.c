@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:22:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2024/11/14 13:37:17 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:13:45 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	get_collectibles(char **map)
 
 static void	flood_fill(char **map, int x, int y, t_parse *items)
 {
-	if (!map || x < 0 || y < 0 || map[x][y] == '1' || map[x][y] == 'F'
+	if (!map || map[x][y] == '1' || map[x][y] == 'F'
 		|| x > 100 || y > 100)
 		return ;
 	if (map[x][y] == 'C')
