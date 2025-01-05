@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 23:32:32 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/01/06 00:45:24 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:46:12 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ mlx_instance_t	*find_goomb(t_data *data)
 	int				y;
 	size_t			i;
 	mlx_instance_t	*goomb;
-	
+
 	x = data->player_x;
 	y = data->player_y;
 	i = 0;
