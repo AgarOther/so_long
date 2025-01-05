@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:13:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/01/03 18:12:07 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:40:47 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include "../libft/get_next_line/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
+
+# ifndef FRAME_TIME
+#  define FRAME_TIME 20
+# endif
 
 typedef struct s_parse
 {
@@ -63,26 +67,31 @@ typedef struct s_data
 }			t_data;
 
 // Memory
-int		free_data(t_data *data, int textures);
+int					free_data(t_data *data, int textures);
 
 // Textures
-int		load_textures(t_data *data);
-int		draw_texture(t_data	*data, char type, int x, int y);
-void	print_steps(t_data *data);
-void	animate(void *param);
-void	add_step(t_data *data, size_t i);
+int					load_textures(t_data *data);
+int					draw_texture(t_data	*data, char type, int x, int y);
+void				print_steps(t_data *data);
+void				animate(void *param);
+void				add_step(t_data *data, size_t i);
+
+// Goomb
+char				**populate_goomb(char **map);
+void				hit_goomb(t_data *data);
+mlx_instance_t		*find_goomb(t_data *data);
 
 // Parsing
-int		is_ber_file(char *str);
-char	**get_map(int fd, int i);
-int		has_path(char **map, t_data **data);
-int		has_correct_features(t_map *map);
-void	set_exit(t_data **data);
+int					is_ber_file(char *str);
+char				**get_map(int fd, int i);
+int					has_path(char **map, t_data **data);
+int					has_correct_features(t_map *map);
+void				set_exit(t_data **data);
 
 // Player Movement
-void	move_right(t_data *data);
-void	move_left(t_data *data);
-void	move_down(t_data *data);
-void	move_up(t_data *data);
+void				move_right(t_data *data);
+void				move_left(t_data *data);
+void				move_down(t_data *data);
+void				move_up(t_data *data);
 
 #endif

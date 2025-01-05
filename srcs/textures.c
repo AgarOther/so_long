@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:50:24 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/01/03 18:12:26 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:24:45 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ int	draw_texture(t_data	*data, char type, int x, int y)
 		if (mlx_image_to_window(data->mlx, tmp, x * 32, y * 32) == -1)
 			return (0);
 		tmp = data->sprites->collectible;
+	}
+	else if (type == 'G')
+	{
+		tmp = data->sprites->empty;
+		if (mlx_image_to_window(data->mlx, tmp, x * 32, y * 32) == -1)
+			return (0);
+		tmp = data->sprites->goomb;
 	}
 	else if (type == '0' || type == 'P' || type == 'E')
 		tmp = data->sprites->empty;

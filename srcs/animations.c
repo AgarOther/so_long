@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:07:52 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/01/03 17:48:26 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/05 23:26:50 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	animate(void *param)
 
 	data = (t_data *) param;
 	frames++;
-	if (frames >= 10)
+	if (frames >= FRAME_TIME)
 	{
 		i = 0;
 		instances = data->sprites->collectible->count;
@@ -30,7 +30,7 @@ void	animate(void *param)
 		{
 			if (way && data->sprites->collectible->instances[i].enabled)
 				data->sprites->collectible->instances[i].y--;
-			else if (data->sprites->collectible->instances[i].enabled)
+			else if (!way && data->sprites->collectible->instances[i].enabled)
 				data->sprites->collectible->instances[i].y++;
 			i++;
 		}

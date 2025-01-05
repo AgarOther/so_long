@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/01/03 17:15:06 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:26:39 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ static void	key_hook(mlx_key_data_t keydata, void *param)
 			move_down(data);
 		else if (keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
 			move_up(data);
+		else if (keydata.key == MLX_KEY_SPACE)
+		{
+			if (data->map[data->player_y][data->player_x + 1] == 'G'
+				|| data->map[data->player_y][data->player_x - 1] == 'G'
+				|| data->map[data->player_y + 1][data->player_x] == 'G'
+				|| data->map[data->player_y - 1][data->player_x] == 'G')
+				hit_goomb(data, 0);
+		}
 	}
 }
 
@@ -100,6 +108,7 @@ int	main(int argc, char **argv)
 	map = parse_map(argc, argv, data);
 	if (!map)
 		return (1);
+	map = populate_goomb(map);
 	if (!set_data(&data, map) || !load_textures(data))
 	{
 		ft_putendl_fd("Error\nCouldn't initialize MLX. "

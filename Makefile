@@ -1,6 +1,6 @@
 # Compilation
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -D FRAME_RATE=20
 
 LIBFT		= @make -C ./libft
 
@@ -18,7 +18,8 @@ SRCS		=	srcs/main.c \
 				srcs/player_actions.c \
 				srcs/textures.c \
 				srcs/free.c \
-				srcs/animations.c
+				srcs/animations.c \
+				srcs/goomb_utils.c
 
 OBJ_FOLDER	= objs
 MLX_FOLDER	= MLX42
