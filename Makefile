@@ -19,7 +19,7 @@ SRCS		=	srcs/main.c \
 				srcs/textures.c \
 				srcs/free.c \
 				srcs/animations.c \
-				srcs/goomb_utils.c
+				srcs/goomb.c
 
 OBJ_FOLDER	= objs
 MLX_FOLDER	= MLX42
