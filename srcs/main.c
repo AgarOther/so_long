@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:17:47 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/01/06 00:26:39 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:47:16 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	key_hook(mlx_key_data_t keydata, void *param)
 				|| data->map[data->player_y][data->player_x - 1] == 'G'
 				|| data->map[data->player_y + 1][data->player_x] == 'G'
 				|| data->map[data->player_y - 1][data->player_x] == 'G')
-				hit_goomb(data, 0);
+				hit_goomb(data);
 		}
 	}
 }
