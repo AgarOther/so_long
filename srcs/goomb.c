@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   goomb_utils.c                                      :+:      :+:    :+:   */
+/*   goomb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 23:32:32 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/01/06 00:46:12 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:52:51 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ mlx_instance_t	*find_goomb(t_data *data)
 	while (i < data->sprites->goomb->count)
 	{
 		goomb = &data->sprites->goomb->instances[i];
+		i++;
+		if (!goomb->enabled)
+			continue ;
 		if ((goomb->x == x * 32 && goomb->y == (y + 1) * 32)
 			|| (goomb->x == x * 32 && goomb->y == (y - 1) * 32)
 			|| (goomb->x == (x + 1) * 32 && goomb->y == y * 32)
 			|| (goomb->x == (x - 1) * 32 && goomb->y == y * 32))
 			return (goomb);
-		i++;
 	}
+	ft_printf("Goomb not found\n");
 	return (NULL);
 }
 
